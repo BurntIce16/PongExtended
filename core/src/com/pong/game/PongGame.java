@@ -29,3 +29,5 @@ public class PongGame extends ApplicationAdapter {
 		img.dispose();
 	}
 }
+
+// Hi Clayton :D
