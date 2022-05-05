@@ -1,33 +1,70 @@
 package com.pong.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import java.util.ArrayList;
 
 public class PongGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	ArrayList<Playerpaddle> paddles = new ArrayList<Playerpaddle>();
+	ArrayList<Ball> balls = new ArrayList<Ball>();
+	World world;
 	
 	@Override
 	public void create () {
+		//create physics world
+		world = new World(new Vector2(0f, 0f), false);
+
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		Playerpaddle p1 = new Playerpaddle(batch, 0, world);
+		Playerpaddle p2 = new Playerpaddle(batch, 1, world);
+		paddles.add(p1);
+		paddles.add(p2);
+
+		Ball b1 = new Ball(batch, 0, world);
+		balls.add(b1);
+
+
 	}
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
+		ScreenUtils.clear(0, 0, 0, 1);
+
+		world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+
 		batch.begin();
-		batch.draw(img, 0, 0);
+		for(Playerpaddle p : paddles){
+			p.draw();
+		}
+		for(Ball b : balls){
+			b.draw();
+		}
+
 		batch.end();
+
+
+
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
+		for(Playerpaddle p : paddles){
+			p.dispose();
+		}
+		for(Ball b : balls){
+			b.dispose();
+		}
 	}
 }
+
 
 // Hi Clayton :D
