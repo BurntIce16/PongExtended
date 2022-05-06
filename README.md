@@ -22,3 +22,5 @@ Pong but cooler
 - [ ] Something which blocks vision temporarely
 - [ ] Distraction balls
 - [ ] Russian roullete (5 new balls spawn, 1 real ball is in red)
+- [ ] Dragon eats ball and shoots it our randomly from one side
+- [ ] 
