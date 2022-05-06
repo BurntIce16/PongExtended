@@ -27,7 +27,7 @@ public class Ball {
     public Ball(SpriteBatch b, int s, World w){
         batch = b;
         side = s;
-        img = new Texture("ball.png");
+        img = new Texture("Ball.png");
         sprite = new Sprite(img);
         config();
 
@@ -44,7 +44,7 @@ public class Ball {
 
         fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 0.000000000000001f;
+        fixtureDef.density = 1f;
 
         fixture = body.createFixture(fixtureDef);
 
@@ -54,6 +54,7 @@ public class Ball {
         body.setAngularDamping(0f);
         body.setSleepingAllowed(false);
         fixture.setFriction(0f);
+        fixture.setRestitution(1f);
 
 
         //sets bit data for collision detection
@@ -78,10 +79,14 @@ public class Ball {
 
     public void draw(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            //body.applyLinearImpulse(10f, 0f, sprite.getWidth()/2, sprite.getHeight()/2, true);
             body.setLinearVelocity(100f,0f);
             System.out.println("Force Applied!");
         }
+
+        //This is a massive hack
+        body.setLinearVelocity(body.getLinearVelocity());
+
+
         sprite.setPosition(body.getPosition().x, body.getPosition().y);
         sprite.draw(batch);
     }

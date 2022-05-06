@@ -27,6 +27,7 @@ public class WorldContactListener implements ContactListener {
             case PongGame.BALL_BIT | PongGame.NOTHING_BIT:
                 if(fixA.getFilterData().categoryBits == PongGame.NOTHING_BIT){
                     ((Ball) fixB.getUserData()).reverse();
+                    System.out.println("Impact Nothing");
                 }
                 /*
                 Idk why but this line breaks the collision system and idk how to fix it rn
