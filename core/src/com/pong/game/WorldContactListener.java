@@ -26,7 +26,7 @@ public class WorldContactListener implements ContactListener {
                 }
             case PongGame.BALL_BIT | PongGame.NOTHING_BIT:
                 if(fixA.getFilterData().categoryBits == PongGame.NOTHING_BIT){
-                    ((Ball) fixB.getUserData()).reverse();
+                    //((Ball) fixB.getUserData()).reverse();
                     System.out.println("Impact Nothing");
                 }
                 /*

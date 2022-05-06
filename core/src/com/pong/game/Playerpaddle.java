@@ -37,7 +37,7 @@ public class Playerpaddle {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.KinematicBody;
-        bodyDef.position.set(sprite.getX()/2, sprite.getY()/2);
+        bodyDef.position.set(sprite.getX(), sprite.getY());
         body = world.createBody(bodyDef);
         shape = new PolygonShape();
         shape.setAsBox(sprite.getWidth()/2, sprite.getHeight()/2);
@@ -59,9 +59,9 @@ public class Playerpaddle {
 
     public void config(){
         if(side == 0){
-            sprite.setPosition(5, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
+            sprite.setPosition(10, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
         }else if(side == 1){
-            sprite.setPosition(Gdx.graphics.getWidth() - sprite.getWidth() - 5, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
+            sprite.setPosition(Gdx.graphics.getWidth() - sprite.getWidth() - 10, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
         }
     }
 

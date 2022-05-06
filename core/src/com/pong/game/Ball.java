@@ -23,6 +23,8 @@ public class Ball {
     PolygonShape shape;
     FixtureDef fixtureDef;
     Fixture fixture;
+    float moveX = 0;
+    float moveY = 0;
 
     public Ball(SpriteBatch b, int s, World w){
         batch = b;
@@ -30,7 +32,6 @@ public class Ball {
         img = new Texture("Ball.png");
         sprite = new Sprite(img);
         config();
-
 
         world = w;
 
@@ -44,7 +45,7 @@ public class Ball {
 
         fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 1f;
+        fixtureDef.density = 0.000000000000000000000000001f;
 
         fixture = body.createFixture(fixtureDef);
 
@@ -79,13 +80,13 @@ public class Ball {
 
     public void draw(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            body.setLinearVelocity(100f,0f);
+            moveX = 100f;
+            moveY = 0;
             System.out.println("Force Applied!");
         }
 
-        //This is a massive hack
-        body.setLinearVelocity(body.getLinearVelocity());
 
+        body.setLinearVelocity(moveX, moveY);
 
         sprite.setPosition(body.getPosition().x, body.getPosition().y);
         sprite.draw(batch);
@@ -99,24 +100,24 @@ public class Ball {
 
 
     public void reverse(){
-        int modifyX;
-        int modifyY;
         int modifier = 50;
 
         //this code is atrocious
-        if(body.getLinearVelocity().x > 0){
-            modifyX = modifier;
+        if(moveX > 0){
+            moveX += modifier;
         }else{
-            modifyX = -1*modifier;
+            moveX -= modifier;
         }
-        if(body.getLinearVelocity().y > 0){
-            modifyY = modifier;
+        if(moveY > 0){
+            moveY += modifier;
         }else{
-            modifyY = -1*modifier;
+            moveY -= modifier;
         }
 
+        moveY *= -1;
+        moveX *=-1;
 
-        body.setLinearVelocity((body.getLinearVelocity().x + modifyX) * -1 , (body.getLinearVelocity().y + modifyY) * -1);
+        body.setLinearVelocity(moveX, moveY);
         System.out.println("Boop");
     }
 
