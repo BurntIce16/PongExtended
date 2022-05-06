@@ -16,11 +16,21 @@ public class PongGame extends ApplicationAdapter {
 	ArrayList<Playerpaddle> paddles = new ArrayList<Playerpaddle>();
 	ArrayList<Ball> balls = new ArrayList<Ball>();
 	World world;
-	
+
+
+	//Box2D Collision Bits
+	public static final short NOTHING_BIT = 0;
+	public static final short PLAYER_PADDLE_BIT = 1;
+	public static final short AI_PADDLE_BIT = 2;
+	public static final short BALL_BIT = 4;
+
+
+
 	@Override
 	public void create () {
 		//create physics world
 		world = new World(new Vector2(0f, 0f), false);
+		world.setContactListener(new WorldContactListener());
 
 		batch = new SpriteBatch();
 		Playerpaddle p1 = new Playerpaddle(batch, 0, world);

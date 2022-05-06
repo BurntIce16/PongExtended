@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -35,8 +36,8 @@ public class Playerpaddle {
         world = w;
 
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(sprite.getX(), sprite.getY());
+        bodyDef.type = BodyDef.BodyType.KinematicBody;
+        bodyDef.position.set(sprite.getX()/2, sprite.getY()/2);
         body = world.createBody(bodyDef);
         shape = new PolygonShape();
         shape.setAsBox(sprite.getWidth()/2, sprite.getHeight()/2);
@@ -48,7 +49,11 @@ public class Playerpaddle {
 
         fixture = body.createFixture(fixtureDef);
 
-
+        //sets bit data for collision detection
+        fixture.setUserData(this);
+        Filter filter = new Filter();
+        filter.categoryBits = PongGame.PLAYER_PADDLE_BIT;
+        fixture.setFilterData(filter);
 
     }
 
@@ -58,8 +63,6 @@ public class Playerpaddle {
         }else if(side == 1){
             sprite.setPosition(Gdx.graphics.getWidth() - sprite.getWidth() - 5, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
         }
-
-        //sprite.setSize(25f, 100f);
     }
 
     public void draw(){
@@ -68,6 +71,7 @@ public class Playerpaddle {
         }if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             sprite.translateY(-speed);
         }
+        body.setTransform(sprite.getX(), sprite.getY(), sprite.getRotation());
         sprite.draw(batch);
     }
 
@@ -77,6 +81,5 @@ public class Playerpaddle {
         img.dispose();
         shape.dispose();
     }
-
 
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -43,7 +44,7 @@ public class Ball {
 
         fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 0f;
+        fixtureDef.density = 0.000000000000001f;
 
         fixture = body.createFixture(fixtureDef);
 
@@ -52,8 +53,16 @@ public class Ball {
         body.setLinearDamping(0f);
         body.setAngularDamping(0f);
         body.setSleepingAllowed(false);
+        fixture.setFriction(0f);
 
 
+        //sets bit data for collision detection
+        fixture.setUserData(this);
+        Filter filter = new Filter();
+        filter.categoryBits = PongGame.BALL_BIT;
+        fixture.setFilterData(filter);
+
+        body.setLinearVelocity(0,0);
 
     }
 
@@ -65,13 +74,12 @@ public class Ball {
         }else if(side == 2){
             sprite.setPosition(Gdx.graphics.getWidth() - sprite.getWidth() - 5, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
         }
-
-        sprite.setScale(.5f, .5f);
     }
 
     public void draw(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            body.applyLinearImpulse(100f, 0f, sprite.getWidth()/2, sprite.getHeight()/2, true);
+            //body.applyLinearImpulse(10f, 0f, sprite.getWidth()/2, sprite.getHeight()/2, true);
+            body.setLinearVelocity(100f,0f);
             System.out.println("Force Applied!");
         }
         sprite.setPosition(body.getPosition().x, body.getPosition().y);
@@ -79,10 +87,32 @@ public class Ball {
     }
 
 
-
     public void dispose(){
         img.dispose();
         shape.dispose();
+    }
+
+
+    public void reverse(){
+        int modifyX;
+        int modifyY;
+        int modifier = 50;
+
+        //this code is atrocious
+        if(body.getLinearVelocity().x > 0){
+            modifyX = modifier;
+        }else{
+            modifyX = -1*modifier;
+        }
+        if(body.getLinearVelocity().y > 0){
+            modifyY = modifier;
+        }else{
+            modifyY = -1*modifier;
+        }
+
+
+        body.setLinearVelocity((body.getLinearVelocity().x + modifyX) * -1 , (body.getLinearVelocity().y + modifyY) * -1);
+        System.out.println("Boop");
     }
 
 
