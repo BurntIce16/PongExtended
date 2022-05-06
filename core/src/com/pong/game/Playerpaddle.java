@@ -65,6 +65,7 @@ public class Playerpaddle {
         }
     }
 
+
     public void draw(){
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             sprite.translateY(speed);

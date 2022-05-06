@@ -42,6 +42,7 @@ public class PongGame extends ApplicationAdapter {
 		balls.add(b1);
 
 
+
 	}
 
 	@Override

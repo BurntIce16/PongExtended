@@ -43,6 +43,7 @@ public class Ball {
         shape.setAsBox(sprite.getWidth()/2, sprite.getHeight()/2);
 
 
+
         fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 0.000000000000000000000000001f;
