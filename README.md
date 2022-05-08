@@ -11,6 +11,7 @@ Pong but cooler
 - [x] Add Colliders
 - [ ] Constrain paddles to screen area
 - [ ] Improve ball movement
+- [ ] Make controls event driven
 - [ ] Add Scoring
 - [ ] Add Life Counter system
 - [ ] Add power up system
