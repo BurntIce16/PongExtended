@@ -17,7 +17,9 @@ Pong but cooler
 - [ ] Add power up system
 - [ ] Add Power Up Menu
 - [ ] Add Power Ups (aim for around 15 ish)
-- [ ] Add post processing
+- [ ] Force aspect ratio
+- [ ] Add options
+- [x] Add post processing
 - [ ] Add controller support
 - [ ] Add particle effects
 
