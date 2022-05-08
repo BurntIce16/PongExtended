@@ -7,8 +7,11 @@ Pong but cooler
 - [x] Create Paddles
 - [x] Create Balls
 - [x] Add Collision System
-- [ ] And Colliders and Scoring
-- [ ] Add Life Counters
+- [x] Create Level Border
+- [x] Add Colliders
+- [ ] Add Scoring
+- [ ] Add Life Counter system
+- [ ] Add power up system
 - [ ] Add Power Up Menu
 - [ ] Add Power Ups (aim for around 15 ish)
 - [ ] Add particle effects
