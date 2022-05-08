@@ -1,5 +1,7 @@
 package com.pong.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.pong.game.PongGame;
@@ -10,6 +12,9 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("Apcsa Pong");
+		//config.setResizable(false);
+		config.setWindowIcon("ico.png");
+
 		new Lwjgl3Application(new PongGame(), config);
 	}
 }

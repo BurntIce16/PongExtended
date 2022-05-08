@@ -71,7 +71,7 @@ public class Ball {
 
     public void config(){
         if(side == 0){
-            sprite.setPosition((int) (Gdx.graphics.getWidth()/2 - sprite.getWidth()/2), (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
+            sprite.setPosition((int) (Gdx.graphics.getWidth()/2 + sprite.getWidth()/2), (int) (Gdx.graphics.getHeight()/2 + sprite.getHeight()/2));
         }else if(side == 1){
             sprite.setPosition(5, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
         }else if(side == 2){

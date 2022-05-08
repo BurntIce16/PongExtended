@@ -20,10 +20,12 @@ public class PongGame extends ApplicationAdapter {
 	Box2DDebugRenderer box2dDebugRenderer;
 	Camera camera;
 	LevelBuilder level;
+	VfxController vfx;
+	ControllerController controllerManager;
 
 
 	//Box2D Collision Bits
-	public static final short NOTHING_BIT = 0;
+	//public static final short NOTHING_BIT = 0;
 	public static final short PLAYER_PADDLE_BIT = 1;
 	public static final short WALL_BIT = 2;
 	public static final short BALL_BIT = 4;
@@ -34,14 +36,19 @@ public class PongGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+
+		controllerManager = new ControllerController();
+
+		//setup vfx
+		vfx = new VfxController(true);
+
+
 		//setup camera
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
 		camera = new OrthographicCamera(width, height);
 		camera.position.set((float) width / 2, (float) height / 2, 0);
 		camera.update();
-
-
 
 		//create physics world
 		world = new World(new Vector2(0f, 0f), false);
@@ -64,13 +71,16 @@ public class PongGame extends ApplicationAdapter {
 		box2dDebugRenderer = new Box2DDebugRenderer();
 	}
 
+
 	@Override
 	public void render () {
+		//start vfx
+		vfx.startRender();
+
 		ScreenUtils.clear(0, 0, 0, 1);
 
 		//step world physics
 		world.step(Gdx.graphics.getDeltaTime(), 6, 2);
-
 
 		//draw entities
 		batch.begin();
@@ -94,6 +104,10 @@ public class PongGame extends ApplicationAdapter {
 		//render box2d
 		box2dDebugRenderer.render(world, camera.combined);
 
+		//end vfx
+		vfx.endRender();
+
+
 	}
 	
 	@Override
@@ -106,5 +120,8 @@ public class PongGame extends ApplicationAdapter {
 			b.dispose();
 		}
 		level.dispose();
+
+		//dispose vfx
+		vfx.dispose();
 	}
 }
