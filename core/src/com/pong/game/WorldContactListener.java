@@ -14,30 +14,33 @@ public class WorldContactListener implements ContactListener {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
 
-        int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+        //int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
-        switch (cDef){
-            case PongGame.PLAYER_PADDLE_BIT | PongGame.BALL_BIT:
-                if(fixA.getFilterData().categoryBits == PongGame.PLAYER_PADDLE_BIT){
-                    ((Ball) fixB.getUserData()).reverse();
-                    System.out.println("Impact paddle1");
-                }else{
-                    ((Ball) fixA.getUserData()).reverse();
-                    System.out.println("Impact paddle2");
-                }
-            case PongGame.BALL_BIT | PongGame.NOTHING_BIT:
-                if(fixA.getFilterData().categoryBits == PongGame.NOTHING_BIT){
-                    //((Ball) fixB.getUserData()).reverse();
-                    System.out.println("Impact Nothing");
-                }
-                /*
-                Idk why but this line breaks the collision system and idk how to fix it rn
-
-                else{
-                    ((Ball) fixA.getUserData()).reverse();
-                }
-
-                 */
+        if(fixA.getFilterData().categoryBits == PongGame.BALL_BIT){
+            if(fixB.getFilterData().categoryBits == PongGame.WALL_BIT){
+                ((Ball) fixA.getUserData()).reverse(false);
+            }
+            if(fixB.getFilterData().categoryBits == PongGame.PLAYER_PADDLE_BIT){
+                ((Ball) fixA.getUserData()).reverse(true);
+            }
+            if(fixB.getFilterData().categoryBits == PongGame.SCORE_BIT){
+                //needs to be changed
+                ((Ball) fixA.getUserData()).reverse(true);
+                //update score system
+            }
+        }
+        if(fixB.getFilterData().categoryBits == PongGame.BALL_BIT){
+            if(fixA.getFilterData().categoryBits == PongGame.WALL_BIT){
+                ((Ball) fixB.getUserData()).reverse(false);
+            }
+            if(fixA.getFilterData().categoryBits == PongGame.PLAYER_PADDLE_BIT){
+                ((Ball) fixB.getUserData()).reverse(true);
+            }
+            if(fixA.getFilterData().categoryBits == PongGame.SCORE_BIT){
+                //needs to be changed
+                ((Ball) fixB.getUserData()).reverse(true);
+                //Update score system
+            }
         }
 
     }

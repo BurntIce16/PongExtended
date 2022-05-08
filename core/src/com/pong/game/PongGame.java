@@ -2,9 +2,11 @@ package com.pong.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -12,22 +14,35 @@ import java.util.ArrayList;
 
 public class PongGame extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
-	ArrayList<Playerpaddle> paddles = new ArrayList<Playerpaddle>();
-	ArrayList<Ball> balls = new ArrayList<Ball>();
+	ArrayList<Playerpaddle> paddles = new ArrayList<>();
+	ArrayList<Ball> balls = new ArrayList<>();
 	World world;
+	Box2DDebugRenderer box2dDebugRenderer;
+	Camera camera;
+	LevelBuilder level;
 
 
 	//Box2D Collision Bits
 	public static final short NOTHING_BIT = 0;
 	public static final short PLAYER_PADDLE_BIT = 1;
-	public static final short AI_PADDLE_BIT = 2;
+	public static final short WALL_BIT = 2;
 	public static final short BALL_BIT = 4;
+	public static final short SCORE_BIT = 8;
+
 
 
 
 	@Override
 	public void create () {
+		//setup camera
+		int width = Gdx.graphics.getWidth();
+		int height = Gdx.graphics.getHeight();
+		camera = new OrthographicCamera(width, height);
+		camera.position.set((float) width / 2, (float) height / 2, 0);
+		camera.update();
+
+
+
 		//create physics world
 		world = new World(new Vector2(0f, 0f), false);
 		world.setContactListener(new WorldContactListener());
@@ -41,17 +56,29 @@ public class PongGame extends ApplicationAdapter {
 		Ball b1 = new Ball(batch, 0, world);
 		balls.add(b1);
 
+		//Create Level
+		level = new LevelBuilder(batch, world);
 
 
+		//create debug renderer
+		box2dDebugRenderer = new Box2DDebugRenderer();
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
 
+		//step world physics
 		world.step(Gdx.graphics.getDeltaTime(), 6, 2);
 
+
+		//draw entities
 		batch.begin();
+
+		//render level
+		level.render();
+
+
 		for(Playerpaddle p : paddles){
 			p.draw();
 		}
@@ -59,9 +86,13 @@ public class PongGame extends ApplicationAdapter {
 			b.draw();
 		}
 
+
+		//close batch
 		batch.end();
 
 
+		//render box2d
+		box2dDebugRenderer.render(world, camera.combined);
 
 	}
 	
@@ -74,8 +105,6 @@ public class PongGame extends ApplicationAdapter {
 		for(Ball b : balls){
 			b.dispose();
 		}
+		level.dispose();
 	}
 }
-
-
-// Hi Clayton :D

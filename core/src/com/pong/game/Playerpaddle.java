@@ -58,10 +58,12 @@ public class Playerpaddle {
     }
 
     public void config(){
+        final int wallOffset = 20;
+
         if(side == 0){
-            sprite.setPosition(10, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
+            sprite.setPosition(wallOffset, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
         }else if(side == 1){
-            sprite.setPosition(Gdx.graphics.getWidth() - sprite.getWidth() - 10, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
+            sprite.setPosition(Gdx.graphics.getWidth() - sprite.getWidth() - wallOffset, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
         }
     }
 
@@ -72,7 +74,7 @@ public class Playerpaddle {
         }if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             sprite.translateY(-speed);
         }
-        body.setTransform(sprite.getX(), sprite.getY(), sprite.getRotation());
+        body.setTransform(sprite.getX() + sprite.getWidth()/2, sprite.getY() + sprite.getHeight()/2, sprite.getRotation());
         sprite.draw(batch);
     }
 

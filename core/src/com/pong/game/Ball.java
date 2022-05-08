@@ -37,7 +37,7 @@ public class Ball {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(sprite.getX(), sprite.getY());
+        bodyDef.position.set(sprite.getX() - sprite.getWidth()/2, sprite.getY() - sprite.getHeight()/2);
         body = world.createBody(bodyDef);
         shape = new PolygonShape();
         shape.setAsBox(sprite.getWidth()/2, sprite.getHeight()/2);
@@ -89,7 +89,7 @@ public class Ball {
 
         body.setLinearVelocity(moveX, moveY);
 
-        sprite.setPosition(body.getPosition().x, body.getPosition().y);
+        sprite.setPosition(body.getPosition().x - sprite.getWidth()/2, body.getPosition().y - sprite.getHeight()/2);
         sprite.draw(batch);
     }
 
@@ -100,26 +100,35 @@ public class Ball {
     }
 
 
-    public void reverse(){
-        int modifier = 50;
+    public void reverse(boolean paddle){
+
+        int randomizerX = -50 + (int)(Math.random() * ((50 - -50) + 1));
+        int randomizerY = -50 + (int)(Math.random() * ((50 - -50) + 1));
+
+        int modifier = 500;
 
         //this code is atrocious
-        if(moveX > 0){
-            moveX += modifier;
-        }else{
-            moveX -= modifier;
+        if(paddle){
+            if(moveX > 0){
+                moveX += (modifier + randomizerX);
+            }else{
+                moveX -= (modifier + randomizerX);
+            }
         }
         if(moveY > 0){
-            moveY += modifier;
+            moveY += (modifier + randomizerY);
         }else{
-            moveY -= modifier;
+            moveY -= (modifier + randomizerY);
         }
 
         moveY *= -1;
-        moveX *=-1;
+
+        if(paddle){
+            moveX *=-1;
+        }
 
         body.setLinearVelocity(moveX, moveY);
-        System.out.println("Boop");
+        System.out.println(body.getLinearVelocity());
     }
 
 
