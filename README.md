@@ -9,13 +9,16 @@ Pong but cooler
 - [x] Add Collision System
 - [x] Create Level Border
 - [x] Add Colliders
+- [ ] Constrain paddles to screen area
+- [ ] Improve ball movement
 - [ ] Add Scoring
 - [ ] Add Life Counter system
 - [ ] Add power up system
 - [ ] Add Power Up Menu
 - [ ] Add Power Ups (aim for around 15 ish)
+- [ ] Add post processing
+- [ ] Add controller support
 - [ ] Add particle effects
-- [ ] Make it gud
 
 ---
 <h2>Power ups</h2>
