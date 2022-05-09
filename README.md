@@ -1,6 +1,5 @@
 # PongExtended
-Pong but cooler
-- Every point a screen appears with 3 power ups to choose from
+A remake of pong with added features such as power ups and modifiers written in java with libgdx.
 
 <h2>todo</h2>
 
