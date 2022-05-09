@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -129,6 +130,22 @@ public class Ball {
 
         body.setLinearVelocity(moveX, moveY);
         System.out.println(body.getLinearVelocity());
+
+    }
+
+    public Vector2 getVelocity(){
+        return new Vector2(moveX, moveY);
+    }
+
+    public void setVelocity(Vector2 v){
+        body.setLinearVelocity(v.x, v.y);
+    }
+    public Vector2 getPos(){
+        return body.getPosition();
+    }
+    public void setPos(Vector2 v){
+        sprite.setPosition(v.x,v.y);
+        body.setTransform(v, 0);
     }
 
 

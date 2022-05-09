@@ -2,6 +2,7 @@ package com.pong.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.pong.game.mods.Mitosis;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class PongGame extends ApplicationAdapter {
 	LevelBuilder level;
 	VfxController vfx;
 	ControllerController controllerManager;
+	ModifierManager modManager;
 
 
 	//Box2D Collision Bits
@@ -69,6 +72,11 @@ public class PongGame extends ApplicationAdapter {
 
 		//create debug renderer
 		box2dDebugRenderer = new Box2DDebugRenderer();
+
+
+		//Add modifier system
+		modManager = new ModifierManager(this);
+
 	}
 
 
@@ -87,6 +95,15 @@ public class PongGame extends ApplicationAdapter {
 
 		//render level
 		level.render();
+
+
+
+
+		//THIS IS TEMPORARY!!!
+		if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
+			modManager.addMod(new Mitosis(this));
+		}
+		//THIS IS TEMPORARY!!!
 
 
 		for(Playerpaddle p : paddles){
@@ -123,5 +140,21 @@ public class PongGame extends ApplicationAdapter {
 
 		//dispose vfx
 		vfx.dispose();
+	}
+
+	public World getWorld(){
+		return world;
+	}
+	public SpriteBatch getBatch(){
+		return batch;
+	}
+	public ArrayList<Ball> getBalls(){
+		return balls;
+	}
+	public Camera getCamera(){
+		return camera;
+	}
+	public VfxController getVfx(){
+		return vfx;
 	}
 }

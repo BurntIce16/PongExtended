@@ -25,6 +25,9 @@ public class Playerpaddle {
     FixtureDef fixtureDef;
     Fixture fixture;
 
+    private boolean moveUp = true;
+    private boolean moveDown = true;
+
     public Playerpaddle(SpriteBatch b, int s, World w){
         batch = b;
         side = s;
@@ -69,9 +72,9 @@ public class Playerpaddle {
 
 
     public void draw(){
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+        if(Gdx.input.isKeyPressed(Input.Keys.UP) && moveUp){
             sprite.translateY(speed);
-        }if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+        }if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && moveDown){
             sprite.translateY(-speed);
         }
         body.setTransform(sprite.getX() + sprite.getWidth()/2, sprite.getY() + sprite.getHeight()/2, sprite.getRotation());
@@ -83,6 +86,20 @@ public class Playerpaddle {
     public void dispose(){
         img.dispose();
         shape.dispose();
+    }
+
+    public void limitMovement(){
+        if(body.getPosition().y > Gdx.graphics.getHeight()/2f){
+            moveUp = false;
+        }else{
+            moveDown = false;
+        }
+    }
+
+    public void releaseMovement(){
+        moveDown = true;
+        moveUp = true;
+
     }
 
 }

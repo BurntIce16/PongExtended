@@ -28,6 +28,9 @@ public class WorldContactListener implements ContactListener {
                 ((Ball) fixA.getUserData()).reverse(true);
                 //update score system
             }
+            if(fixB.getFilterData().categoryBits == PongGame.BALL_BIT){
+                System.out.println("Contacted ball");
+            }
         }
         if(fixB.getFilterData().categoryBits == PongGame.BALL_BIT){
             if(fixA.getFilterData().categoryBits == PongGame.WALL_BIT){
@@ -41,12 +44,41 @@ public class WorldContactListener implements ContactListener {
                 ((Ball) fixB.getUserData()).reverse(true);
                 //Update score system
             }
+            if(fixB.getFilterData().categoryBits == PongGame.BALL_BIT){
+                System.out.println("Contacted ball");
+            }
+        }
+
+        if(fixA.getFilterData().categoryBits == PongGame.PLAYER_PADDLE_BIT){
+            if(fixB.getFilterData().categoryBits == PongGame.WALL_BIT){
+                ((Playerpaddle) fixA.getUserData()).limitMovement();
+                System.out.println("test");
+            }
+        }
+        if(fixB.getFilterData().categoryBits == PongGame.PLAYER_PADDLE_BIT){
+            if(fixA.getFilterData().categoryBits == PongGame.WALL_BIT){
+                ((Playerpaddle) fixB.getUserData()).limitMovement();
+                System.out.println("test");
+            }
         }
 
     }
 
     @Override
     public void endContact(Contact contact) {
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
+        if(fixA.getFilterData().categoryBits == PongGame.PLAYER_PADDLE_BIT){
+            if(fixB.getFilterData().categoryBits == PongGame.WALL_BIT){
+                ((Playerpaddle) fixA.getUserData()).releaseMovement();
+            }
+        }
+        if(fixB.getFilterData().categoryBits == PongGame.PLAYER_PADDLE_BIT){
+            if(fixA.getFilterData().categoryBits == PongGame.WALL_BIT){
+                ((Playerpaddle) fixB.getUserData()).releaseMovement();
+            }
+        }
 
     }
 

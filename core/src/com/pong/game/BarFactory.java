@@ -57,6 +57,8 @@ public class BarFactory {
             filter.categoryBits = PongGame.WALL_BIT;
         }else if(type.equalsIgnoreCase("vertical")){
             filter.categoryBits = PongGame.SCORE_BIT;
+        }else{
+            filter.categoryBits = PongGame.WALL_BIT;
         }
 
 
