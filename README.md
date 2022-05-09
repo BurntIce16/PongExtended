@@ -1,7 +1,11 @@
 # PongExtended
 A remake of pong with added features such as power ups and modifiers written in java with libgdx.
 
-<h2>todo</h2>
+<h2>ToDo</h2>
+
+---
+
+<h3>High priority</h3>
 
 - [x] Create Paddles
 - [x] Create Balls
@@ -16,6 +20,9 @@ A remake of pong with added features such as power ups and modifiers written in 
 - [ ] Add power up system
 - [ ] Add Power Up Menu
 - [ ] Add Power Ups (aim for around 15 ish)
+
+<h3>Low priority</h3>
+
 - [ ] Force aspect ratio
 - [ ] Add options
 - [x] Add post processing
