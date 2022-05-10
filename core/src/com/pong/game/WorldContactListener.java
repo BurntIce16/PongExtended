@@ -18,14 +18,14 @@ public class WorldContactListener implements ContactListener {
 
         if(fixA.getFilterData().categoryBits == PongGame.BALL_BIT){
             if(fixB.getFilterData().categoryBits == PongGame.WALL_BIT){
-                ((Ball) fixA.getUserData()).reverse(false);
+                ((Ball) fixA.getUserData()).reverse();
             }
             if(fixB.getFilterData().categoryBits == PongGame.PLAYER_PADDLE_BIT){
-                ((Ball) fixA.getUserData()).reverse(true);
+                ((Ball) fixA.getUserData()).reversePaddle((Playerpaddle) fixB.getUserData());
             }
             if(fixB.getFilterData().categoryBits == PongGame.SCORE_BIT){
                 //needs to be changed
-                ((Ball) fixA.getUserData()).reverse(true);
+                ((Ball) fixA.getUserData()).reverse();
                 //update score system
             }
             if(fixB.getFilterData().categoryBits == PongGame.BALL_BIT){
@@ -34,14 +34,14 @@ public class WorldContactListener implements ContactListener {
         }
         if(fixB.getFilterData().categoryBits == PongGame.BALL_BIT){
             if(fixA.getFilterData().categoryBits == PongGame.WALL_BIT){
-                ((Ball) fixB.getUserData()).reverse(false);
+                ((Ball) fixB.getUserData()).reverse();
             }
             if(fixA.getFilterData().categoryBits == PongGame.PLAYER_PADDLE_BIT){
-                ((Ball) fixB.getUserData()).reverse(true);
+                ((Ball) fixB.getUserData()).reversePaddle((Playerpaddle) fixA.getUserData());
             }
             if(fixA.getFilterData().categoryBits == PongGame.SCORE_BIT){
                 //needs to be changed
-                ((Ball) fixB.getUserData()).reverse(true);
+                ((Ball) fixB.getUserData()).reverse();
                 //Update score system
             }
             if(fixB.getFilterData().categoryBits == PongGame.BALL_BIT){

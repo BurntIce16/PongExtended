@@ -24,11 +24,13 @@ public class Playerpaddle {
     PolygonShape shape;
     FixtureDef fixtureDef;
     Fixture fixture;
+    PongGame pongGame;
 
     private boolean moveUp = true;
     private boolean moveDown = true;
 
-    public Playerpaddle(SpriteBatch b, int s, World w){
+    public Playerpaddle(SpriteBatch b, int s, World w, PongGame p){
+        pongGame = p;
         batch = b;
         side = s;
         img = new Texture("paddle.png");
@@ -39,7 +41,7 @@ public class Playerpaddle {
         world = w;
 
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.KinematicBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(sprite.getX(), sprite.getY());
         body = world.createBody(bodyDef);
         shape = new PolygonShape();
@@ -89,7 +91,7 @@ public class Playerpaddle {
     }
 
     public void limitMovement(){
-        if(body.getPosition().y > Gdx.graphics.getHeight()/2f){
+        if(body.getPosition().y> Gdx.graphics.getHeight()/2f){
             moveUp = false;
         }else{
             moveDown = false;

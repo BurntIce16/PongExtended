@@ -77,4 +77,8 @@ public class BarFactory {
         shape.dispose();
     }
 
+    public float getHeight(){
+        return sprite.getHeight();
+    }
+
 }

@@ -101,35 +101,86 @@ public class Ball {
     }
 
 
-    public void reverse(boolean paddle){
-
-        int randomizerX = -50 + (int)(Math.random() * ((50 - -50) + 1));
-        int randomizerY = -50 + (int)(Math.random() * ((50 - -50) + 1));
-
+    //Standard wall impact
+    public void reverse(){
+        int randomizerX = -500 + (int)(Math.random() * ((500 - -500) + 1));
+        int randomizerY = -500 + (int)(Math.random() * ((500 - -500) + 1));
         int modifier = 500;
-
-        //this code is atrocious
-        if(paddle){
-            if(moveX > 0){
-                moveX += (modifier + randomizerX);
-            }else{
-                moveX -= (modifier + randomizerX);
-            }
+        if(moveX > 0){
+            moveX += (modifier + randomizerX);
+        }else{
+            moveX -= (modifier + randomizerX);
         }
         if(moveY > 0){
             moveY += (modifier + randomizerY);
         }else{
             moveY -= (modifier + randomizerY);
         }
-
         moveY *= -1;
+        body.setLinearVelocity(moveX, moveY);
+    }
 
-        if(paddle){
-            moveX *=-1;
+    //ball impact on paddle
+    public void reversePaddle(Playerpaddle paddle){
+
+        int randomizerX = -50 + (int)(Math.random() * ((50 - -50) + 1));
+        int randomizerY = -50 + (int)(Math.random() * ((50 - -50) + 1));
+
+        int modifier = 500;
+
+        //paddle zones
+        //zone 1: top 1/3rd: Bounce up
+        //zone 2: middle 1/3rd: Bounce slightly up or down
+        //zone 3: bottom 1/3rd: Bounce down
+
+        float ballY = body.getPosition().y;
+        float paddleY = paddle.body.getPosition().y;
+        float midZone = (paddle.sprite.getHeight()/3)/2;
+
+        // reverse move x (always done)
+        if(moveX > 0){
+            moveX += (modifier + randomizerX);
+        }else{
+            moveX -= (modifier + randomizerX);
         }
 
+        //check collision zone for y modification
+        if(ballY > (paddleY+midZone)){
+            System.out.println("High zone");
+
+            if(moveY >= 0){
+                moveY *= -1;
+            }
+            moveY += (modifier + randomizerY);
+
+
+        }else if(ballY < (paddleY-midZone)){
+            System.out.println("Low zone");
+
+            if(moveY <= 0){
+                moveY *= -1;
+            }
+
+            moveY -= (modifier + randomizerY);
+        }else{
+            System.out.println("Mid zone");
+            if(moveY > 0){
+                moveY = (modifier*2 + randomizerY*5);
+            }else{
+                moveY = (modifier*2 - randomizerY*5);
+            }
+
+        }
+
+        moveY *= -1;
+        moveX *=-1;
         body.setLinearVelocity(moveX, moveY);
         System.out.println(body.getLinearVelocity());
+
+    }
+
+
+    public void score(){
 
     }
 

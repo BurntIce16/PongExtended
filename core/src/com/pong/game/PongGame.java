@@ -58,8 +58,8 @@ public class PongGame extends ApplicationAdapter {
 		world.setContactListener(new WorldContactListener());
 
 		batch = new SpriteBatch();
-		Playerpaddle p1 = new Playerpaddle(batch, 0, world);
-		Playerpaddle p2 = new Playerpaddle(batch, 1, world);
+		Playerpaddle p1 = new Playerpaddle(batch, 0, world, this);
+		Playerpaddle p2 = new Playerpaddle(batch, 1, world, this);
 		paddles.add(p1);
 		paddles.add(p2);
 
