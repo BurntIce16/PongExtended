@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Ball {
+    PongGame pongGame;
     Texture img;
     SpriteBatch batch;
     int side;
@@ -27,14 +28,15 @@ public class Ball {
     float moveX = 0;
     float moveY = 0;
 
-    public Ball(SpriteBatch b, int s, World w){
-        batch = b;
+    public Ball(PongGame pg, int s){
+        pongGame = pg;
+        batch = pongGame.getBatch();
         side = s;
         img = new Texture("Ball.png");
         sprite = new Sprite(img);
         config();
 
-        world = w;
+        world = pongGame.getWorld();
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -204,6 +206,9 @@ public class Ball {
         }else{
             player = 2;
         }
+
+        pongGame.getScoreKeeper().removeLife(player);
+
         System.out.println("Player " + player + " Scored a point!");
 
         //This breaks everything :(

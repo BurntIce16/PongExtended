@@ -26,6 +26,7 @@ public class WorldContactListener implements ContactListener {
             if(fixB.getFilterData().categoryBits == PongGame.SCORE_BIT){
                 //needs to be changed
                 ((Ball) fixA.getUserData()).score();
+                ((Ball) fixA.getUserData()).reverse(true);
                 //update score system
             }
             if(fixB.getFilterData().categoryBits == PongGame.BALL_BIT){
@@ -43,6 +44,7 @@ public class WorldContactListener implements ContactListener {
             if(fixA.getFilterData().categoryBits == PongGame.SCORE_BIT){
                 //needs to be changed
                 ((Ball) fixB.getUserData()).score();
+                ((Ball) fixB.getUserData()).reverse(true);
                 //Update score system
             }
             if(fixA.getFilterData().categoryBits == PongGame.BALL_BIT){
