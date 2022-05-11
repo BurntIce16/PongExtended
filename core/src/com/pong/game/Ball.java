@@ -102,7 +102,7 @@ public class Ball {
 
 
     //Standard wall impact
-    public void reverse(){
+    public void reverse(boolean x){
         int randomizerX = -500 + (int)(Math.random() * ((500 - -500) + 1));
         int randomizerY = -500 + (int)(Math.random() * ((500 - -500) + 1));
         int modifier = 500;
@@ -117,6 +117,9 @@ public class Ball {
             moveY -= (modifier + randomizerY);
         }
         moveY *= -1;
+        if(x){
+            moveX*=-1;
+        }
         body.setLinearVelocity(moveX, moveY);
     }
 
@@ -175,12 +178,7 @@ public class Ball {
         moveY *= -1;
         moveX *=-1;
         body.setLinearVelocity(moveX, moveY);
-        System.out.println(body.getLinearVelocity());
-
-    }
-
-
-    public void score(){
+        //System.out.println(body.getLinearVelocity());
 
     }
 
@@ -195,8 +193,22 @@ public class Ball {
         return body.getPosition();
     }
     public void setPos(Vector2 v){
-        sprite.setPosition(v.x,v.y);
         body.setTransform(v, 0);
+    }
+
+
+    public void score(){
+        int player;
+        if(body.getPosition().x < (float) Gdx.graphics.getWidth()/2){
+            player = 1;
+        }else{
+            player = 2;
+        }
+        System.out.println("Player " + player + " Scored a point!");
+
+        //This breaks everything :(
+        //this.dispose();
+
     }
 
 

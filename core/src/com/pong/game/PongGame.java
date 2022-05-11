@@ -157,4 +157,9 @@ public class PongGame extends ApplicationAdapter {
 	public VfxController getVfx(){
 		return vfx;
 	}
+
+
+	public void addBall(Ball ball){
+		balls.add(ball);
+	}
 }
