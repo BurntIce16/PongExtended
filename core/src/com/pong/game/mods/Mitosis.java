@@ -14,6 +14,7 @@ public class Mitosis implements Modifier {
     Texture img;
     Sprite sprite;
     PongGame pongGame;
+    private int maxBalls = 16;
 
     public Mitosis(PongGame p){
         pongGame = p;
@@ -47,14 +48,14 @@ public class Mitosis implements Modifier {
     //Modifier Methods
     @Override
     public void enable() {
-        Ball ball = new Ball(pongGame, 0);
-        pongGame.addBall(ball);
-        ball.setVelocity(pongGame.getBalls().get(0).getVelocity());
-        ball.setPos(ball.getPos());
-
+        int oldBalls = pongGame.getBalls().size();
+        if(oldBalls < maxBalls){
+            for(int i = 0; i < oldBalls; i++){
+                Ball ball = new Ball(pongGame, 0);
+                pongGame.addBall(ball);
+                ball.setVelocity(pongGame.getBalls().get(i).getVelocity());
+                ball.setPos(pongGame.getBalls().get(i).getPos());
+            }
+        }
     }
-
-
-
-
 }
