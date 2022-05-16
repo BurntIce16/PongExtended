@@ -26,6 +26,7 @@ public class PongGame extends ApplicationAdapter {
 	ControllerController controllerManager;
 	ModifierManager modManager;
 	ScoreKeeper sk;
+	SoundManager soundManager;
 
 
 
@@ -59,7 +60,7 @@ public class PongGame extends ApplicationAdapter {
 
 		//create physics world
 		world = new World(new Vector2(0f, 0f), false);
-		world.setContactListener(new WorldContactListener());
+		world.setContactListener(new WorldContactListener(this));
 
 		batch = new SpriteBatch();
 		Playerpaddle p1 = new Playerpaddle(batch, 0, world, this);
@@ -85,6 +86,9 @@ public class PongGame extends ApplicationAdapter {
 
 		//add score keeper
 		sk = new ScoreKeeper(this);
+
+		//add sound manager
+		soundManager = new SoundManager();
 
 	}
 
@@ -157,6 +161,8 @@ public class PongGame extends ApplicationAdapter {
 
 		//dispose score keeper
 		sk.dispose();
+
+		soundManager.dispose();
 	}
 
 	public World getWorld(){
@@ -176,6 +182,9 @@ public class PongGame extends ApplicationAdapter {
 	}
 	public ScoreKeeper getScoreKeeper(){
 		return sk;
+	}
+	public SoundManager getSoundManager(){
+		return soundManager;
 	}
 
 
