@@ -9,12 +9,12 @@ public class SoundManager
 
     public SoundManager()
     {
-        sound = Gdx.audio.newSound(Gdx.files.internal("Pong Sound Effect.mp3"));
+        sound = Gdx.audio.newSound(Gdx.files.internal("pickupCoin.wav"));
     }
 
     public void playSound()
     {
-        sound.play(1.0f);
+        sound.play(3.0f);
     }
     public void dispose()
     {
