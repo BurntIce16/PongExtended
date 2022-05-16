@@ -2,27 +2,24 @@ package com.pong.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class BarFactory {
     Texture img;
-    SpriteBatch batch;
     Sprite sprite;
     Body body;
-    World world;
     PolygonShape shape;
     FixtureDef fixtureDef;
     Fixture fixture;
+    PongGame pongGame;
 
-    public BarFactory(SpriteBatch b, World w, int x, int y, String type, int xOffset, int yOffset){
-        batch = b;
+    public BarFactory(PongGame p, int x, int y, String type, int xOffset, int yOffset){
+        pongGame = p;
 
         //assign image
         if(type.equalsIgnoreCase("horizontal")){
@@ -36,12 +33,10 @@ public class BarFactory {
         sprite = new Sprite(img);
         sprite.setPosition(x + (xOffset * sprite.getWidth()),y + (yOffset * sprite.getHeight()));
 
-        world = w;
-
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(sprite.getX() + sprite.getWidth()/2, sprite.getY()+ sprite.getHeight()/2);
-        body = world.createBody(bodyDef);
+        body = pongGame.getWorld().createBody(bodyDef);
         shape = new PolygonShape();
         shape.setAsBox(sprite.getWidth()/2, sprite.getHeight()/2);
         fixtureDef = new FixtureDef();
@@ -69,7 +64,7 @@ public class BarFactory {
 
 
     public void render(){
-        sprite.draw(batch);
+        sprite.draw(pongGame.getBatch());
     }
 
     public void dispose(){

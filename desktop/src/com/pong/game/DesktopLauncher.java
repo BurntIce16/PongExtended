@@ -10,9 +10,10 @@ import com.pong.game.PongGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(60);
-		config.setTitle("Apcsa Pong");
-		//config.setResizable(false);
+		config.setForegroundFPS(120);
+		config.setTitle("PongExtended");
+		config.setWindowedMode(1280, 720);
+		config.setResizable(false);
 		config.setWindowIcon("ico.png");
 
 		new Lwjgl3Application(new PongGame(), config);

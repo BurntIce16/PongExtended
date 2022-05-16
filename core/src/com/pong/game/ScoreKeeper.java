@@ -2,6 +2,7 @@ package com.pong.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -13,6 +14,7 @@ public class ScoreKeeper {
     private ArrayList<Texture> hearts;
     private Sprite sprite1;
     private Sprite sprite2;
+    private final int edgeOffset = 100;
     PongGame pongGame;
 
     public ScoreKeeper(PongGame pg){
@@ -25,7 +27,8 @@ public class ScoreKeeper {
 
         sprite1 = new Sprite(hearts.get(lives1-1));
         sprite2 = new Sprite(hearts.get(lives2-1));
-        sprite1.setPosition(100,200);
+        sprite1.setPosition(edgeOffset, (float) Gdx.graphics.getHeight()/2 - sprite1.getHeight()/2);
+        sprite2.setPosition(Gdx.graphics.getWidth() - (sprite2.getWidth() + edgeOffset), (float) Gdx.graphics.getHeight()/2 - sprite2.getHeight()/2);
     }
 
 

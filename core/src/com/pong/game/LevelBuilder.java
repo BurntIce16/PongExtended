@@ -12,12 +12,14 @@ public class LevelBuilder {
     BarFactory leftBar;
     BarFactory rightBar;
     ArrayList<BarFactory> bars;
+    PongGame pongGame;
 
-    public LevelBuilder(SpriteBatch b, World w){
-        topBar = new BarFactory(b,w, 0, Gdx.graphics.getHeight(), "horizontal", 0,-1);
-        bottomBar = new BarFactory(b,w, 0, 0, "horizontal",0,0);
-        leftBar = new BarFactory(b,w, 0, 0, "vertical",0,0);
-        rightBar = new BarFactory(b,w, Gdx.graphics.getWidth(), 0, "vertical",-1,0);
+    public LevelBuilder(PongGame p){
+        pongGame = p;
+        topBar = new BarFactory(pongGame, 0, Gdx.graphics.getHeight(), "horizontal", 0,-1);
+        bottomBar = new BarFactory(pongGame, 0, 0, "horizontal",0,0);
+        leftBar = new BarFactory(pongGame, 0, 0, "vertical",0,0);
+        rightBar = new BarFactory(pongGame, Gdx.graphics.getWidth(), 0, "vertical",-1,0);
         bars = new ArrayList<>();
         bars.add(topBar);
         bars.add(bottomBar);

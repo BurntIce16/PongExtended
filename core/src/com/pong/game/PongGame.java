@@ -28,6 +28,9 @@ public class PongGame extends ApplicationAdapter {
 	ScoreKeeper sk;
 
 
+
+	private final boolean renderColliders = false;
+
 	//Box2D Collision Bits
 	//public static final short NOTHING_BIT = 0;
 	public static final short PLAYER_PADDLE_BIT = 1;
@@ -68,12 +71,14 @@ public class PongGame extends ApplicationAdapter {
 		balls.add(b1);
 
 		//Create Level
-		level = new LevelBuilder(batch, world);
+		level = new LevelBuilder(this);
 
 
 		//create debug renderer
-		box2dDebugRenderer = new Box2DDebugRenderer();
+		if(renderColliders){
+			box2dDebugRenderer = new Box2DDebugRenderer();
 
+		}
 
 		//Add modifier system
 		modManager = new ModifierManager(this);
@@ -92,7 +97,7 @@ public class PongGame extends ApplicationAdapter {
 		ScreenUtils.clear(0, 0, 0, 1);
 
 		//step world physics
-		world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+		world.step(Gdx.graphics.getDeltaTime()*25, 6, 2);
 
 		//draw entities
 		batch.begin();
@@ -125,11 +130,14 @@ public class PongGame extends ApplicationAdapter {
 
 
 		//render box2d
-		box2dDebugRenderer.render(world, camera.combined);
+		if(renderColliders){
+			box2dDebugRenderer.render(world, camera.combined);
+		}
 
 		//end vfx
 		vfx.endRender();
 
+		System.out.println(balls.get(0).getVelocity());
 
 	}
 	
