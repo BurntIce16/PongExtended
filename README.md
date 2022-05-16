@@ -12,12 +12,12 @@ A remake of pong with added features such as power ups and modifiers written in 
 - [x] Add Collision System
 - [x] Create Level Border
 - [x] Add Colliders
-- [ ] Constrain paddles to screen area
-- [ ] Improve ball movement
+- [x] Constrain paddles to screen area
+- [x] Improve ball movement
 - [ ] Make controls event driven
-- [ ] Add Scoring
-- [ ] Add Life Counter system
-- [ ] Add power up system
+- [x] Add Scoring
+- [x] Add Life Counter system
+- [x] Add power up system
 - [ ] Add Power Up Menu
 - [ ] Add Power Ups (aim for around 15 ish)
 
@@ -32,7 +32,7 @@ A remake of pong with added features such as power ups and modifiers written in 
 ---
 <h2>Power ups</h2>
 
-- [ ] Multiple Balls
+- [x] Multiple Balls
 - [ ] Screen Spin
 - [ ] Something which blocks vision temporarely
 - [ ] Distraction balls

@@ -25,6 +25,7 @@ public class PongGame extends ApplicationAdapter {
 	VfxController vfx;
 	ControllerController controllerManager;
 	ModifierManager modManager;
+	ScoreKeeper sk;
 
 
 	//Box2D Collision Bits
@@ -63,7 +64,7 @@ public class PongGame extends ApplicationAdapter {
 		paddles.add(p1);
 		paddles.add(p2);
 
-		Ball b1 = new Ball(batch, 0, world);
+		Ball b1 = new Ball(this, 0);
 		balls.add(b1);
 
 		//Create Level
@@ -76,6 +77,9 @@ public class PongGame extends ApplicationAdapter {
 
 		//Add modifier system
 		modManager = new ModifierManager(this);
+
+		//add score keeper
+		sk = new ScoreKeeper(this);
 
 	}
 
@@ -96,6 +100,8 @@ public class PongGame extends ApplicationAdapter {
 		//render level
 		level.render();
 
+		//render the ScoreKeeper
+		sk.render();
 
 
 
@@ -140,6 +146,9 @@ public class PongGame extends ApplicationAdapter {
 
 		//dispose vfx
 		vfx.dispose();
+
+		//dispose score keeper
+		sk.dispose();
 	}
 
 	public World getWorld(){
@@ -156,6 +165,9 @@ public class PongGame extends ApplicationAdapter {
 	}
 	public VfxController getVfx(){
 		return vfx;
+	}
+	public ScoreKeeper getScoreKeeper(){
+		return sk;
 	}
 
 

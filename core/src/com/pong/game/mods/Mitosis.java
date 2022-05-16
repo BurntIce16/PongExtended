@@ -47,7 +47,7 @@ public class Mitosis implements Modifier {
     //Modifier Methods
     @Override
     public void enable() {
-        Ball ball = new Ball(pongGame.getBatch(), 0, pongGame.getWorld());
+        Ball ball = new Ball(pongGame, 0);
         pongGame.addBall(ball);
         ball.setVelocity(pongGame.getBalls().get(0).getVelocity());
         ball.setPos(ball.getPos());
