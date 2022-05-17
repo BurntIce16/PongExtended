@@ -9,7 +9,7 @@ public class SoundManager
 
     public SoundManager()
     {
-        sound = Gdx.audio.newSound(Gdx.files.internal("pickupCoin.wav"));
+        sound = Gdx.audio.newSound(Gdx.files.internal("PingSound.wav"));
     }
 
     public void playSound()
