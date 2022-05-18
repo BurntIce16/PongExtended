@@ -18,7 +18,7 @@ public class Playerpaddle {
     SpriteBatch batch;
     int side;
     Sprite sprite;
-    private float speed = 5f;
+    private float speed = .05f;
     Body body;
     World world;
     PolygonShape shape;
@@ -35,6 +35,7 @@ public class Playerpaddle {
         side = s;
         img = new Texture("paddle.png");
         sprite = new Sprite(img);
+        sprite.setSize(sprite.getWidth()/pongGame.scaler, sprite.getHeight()/pongGame.scaler);
         config();
 
 
@@ -63,22 +64,17 @@ public class Playerpaddle {
     }
 
     public void config(){
-        final int wallOffset = 20;
+        final int wallOffset = 1;
 
         if(side == 0){
-            sprite.setPosition(wallOffset, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
+            sprite.setPosition((float) wallOffset, (int) (((Gdx.graphics.getHeight()/2)/pongGame.scaler) - sprite.getHeight()/2));
         }else if(side == 1){
-            sprite.setPosition(Gdx.graphics.getWidth() - sprite.getWidth() - wallOffset, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
+            sprite.setPosition((float) (Gdx.graphics.getWidth()/ pongGame.scaler) - sprite.getWidth() - (float) wallOffset, (int) (((Gdx.graphics.getHeight()/2)/ pongGame.scaler) - sprite.getHeight()/2));
         }
     }
 
 
     public void draw(){
-        if(Gdx.input.isKeyPressed(Input.Keys.UP) && moveUp){
-            sprite.translateY(speed);
-        }if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && moveDown){
-            sprite.translateY(-speed);
-        }
         body.setTransform(sprite.getX() + sprite.getWidth()/2, sprite.getY() + sprite.getHeight()/2, sprite.getRotation());
         sprite.draw(batch);
     }
@@ -104,4 +100,18 @@ public class Playerpaddle {
 
     }
 
+
+    public void Up(){
+        if(moveUp){
+            sprite.translateY(speed);
+            System.out.println("Up");
+        }
+    }
+
+    public void Down(){
+        if(moveDown){
+            sprite.translateY(-speed);
+            System.out.println("Down");
+        }
+    }
 }

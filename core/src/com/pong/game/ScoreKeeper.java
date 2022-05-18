@@ -1,8 +1,6 @@
 package com.pong.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -14,10 +12,11 @@ public class ScoreKeeper {
     private ArrayList<Texture> hearts;
     private Sprite sprite1;
     private Sprite sprite2;
-    private final int edgeOffset = 100;
+    private float edgeOffset = 100;
     PongGame pongGame;
 
     public ScoreKeeper(PongGame pg){
+        edgeOffset= edgeOffset/pg.scaler;
         pongGame = pg;
         hearts = new ArrayList<>();
         for(int i = 1; i < 8; i++){
@@ -26,9 +25,11 @@ public class ScoreKeeper {
         }
 
         sprite1 = new Sprite(hearts.get(lives1-1));
+        sprite1.setSize((float) (hearts.get(lives1-1).getWidth()/ pongGame.scaler), (float) (hearts.get(lives1-1).getHeight()/ pongGame.scaler));
         sprite2 = new Sprite(hearts.get(lives2-1));
-        sprite1.setPosition(edgeOffset, (float) Gdx.graphics.getHeight()/2 - sprite1.getHeight()/2);
-        sprite2.setPosition(Gdx.graphics.getWidth() - (sprite2.getWidth() + edgeOffset), (float) Gdx.graphics.getHeight()/2 - sprite2.getHeight()/2);
+        sprite2.setSize((float) (hearts.get(lives2-1).getWidth()/ pongGame.scaler), (float) (hearts.get(lives2-1).getHeight()/ pongGame.scaler));
+        sprite1.setPosition(edgeOffset, (float) (Gdx.graphics.getHeight()/2/ pongGame.scaler) - sprite1.getHeight()/2);
+        sprite2.setPosition((float) (Gdx.graphics.getWidth()/ pongGame.scaler) - (sprite2.getWidth() + edgeOffset), (float) (Gdx.graphics.getHeight()/2/ pongGame.scaler) - sprite2.getHeight()/2);
     }
 
 
@@ -61,9 +62,9 @@ public class ScoreKeeper {
 
     public void updateSprites(){
         sprite1.setTexture(hearts.get(lives1-1));
-        sprite1.setSize(hearts.get(lives1-1).getWidth(), hearts.get(lives1-1).getHeight());
+        sprite1.setSize((float) (hearts.get(lives1-1).getWidth())/ pongGame.scaler, (float) (hearts.get(lives1-1).getHeight())/ pongGame.scaler);
         sprite2.setTexture(hearts.get(lives2-1));
-        sprite2.setSize(hearts.get(lives2-1).getWidth(), hearts.get(lives2-1).getHeight());
+        sprite2.setSize((float) (hearts.get(lives2-1).getWidth()/ pongGame.scaler), (float) (hearts.get(lives2-1).getHeight()/ pongGame.scaler));
 
     }
 
