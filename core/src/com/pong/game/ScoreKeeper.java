@@ -57,6 +57,7 @@ public class ScoreKeeper {
             System.out.println("Invalid player input");
         }
         updateSprites();
+        pongGame.getSoundManager().playBad();
     }
 
     public void updateSprites(){
