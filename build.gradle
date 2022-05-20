@@ -26,6 +26,7 @@ allprojects {
         ashleyVersion = '1.7.4'
         aiVersion = '1.8.2'
         gdxControllersVersion = '2.2.1'
+        typingLabelVersion = '1.2.0'
     }
 
     repositories {
@@ -74,6 +75,6 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         implementation 'com.crashinvaders.vfx:gdx-vfx-core:0.5.0'
         implementation 'com.crashinvaders.vfx:gdx-vfx-effects:0.5.0'
-
+        api "com.rafaskoberg.gdx:typing-label:$typingLabelVersion"
     }
 }

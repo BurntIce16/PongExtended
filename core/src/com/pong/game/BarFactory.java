@@ -31,7 +31,8 @@ public class BarFactory {
         }
 
         sprite = new Sprite(img);
-        sprite.setPosition(x + (xOffset * sprite.getWidth()),y + (yOffset * sprite.getHeight()));
+        sprite.setSize(sprite.getWidth()/pongGame.scaler, sprite.getHeight()/pongGame.scaler);
+        sprite.setPosition((float) (x/ pongGame.scaler) + (xOffset * sprite.getWidth()),(float) (y/pongGame.scaler) + (yOffset * sprite.getHeight()));
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;

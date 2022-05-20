@@ -34,6 +34,7 @@ public class Ball {
         side = s;
         img = new Texture("Ball.png");
         sprite = new Sprite(img);
+        sprite.setSize(sprite.getWidth()/pongGame.scaler, sprite.getHeight()/pongGame.scaler);
         config();
 
         world = pongGame.getWorld();
@@ -74,7 +75,7 @@ public class Ball {
 
     public void config(){
         if(side == 0){
-            sprite.setPosition((int) (Gdx.graphics.getWidth()/2 + sprite.getWidth()/2), (int) (Gdx.graphics.getHeight()/2 + sprite.getHeight()/2));
+            sprite.setPosition((int) ((float) ((Gdx.graphics.getWidth()/2)/ pongGame.scaler) + sprite.getWidth()/2), (int) (((Gdx.graphics.getHeight()/2)/ pongGame.scaler) + sprite.getHeight()/2));
         }else if(side == 1){
             sprite.setPosition(5, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
         }else if(side == 2){
@@ -84,7 +85,7 @@ public class Ball {
 
     public void draw(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            moveX = 100f;
+            moveX = 1f;
             moveY = 0;
             System.out.println("Force Applied!");
         }
@@ -100,14 +101,16 @@ public class Ball {
     public void dispose(){
         img.dispose();
         shape.dispose();
+        world.destroyBody(body);
+        System.out.println("Test");
     }
 
 
     //Standard wall impact
     public void reverse(boolean x){
-        int randomizerX = -500 + (int)(Math.random() * ((500 - -500) + 1));
-        int randomizerY = -500 + (int)(Math.random() * ((500 - -500) + 1));
-        int modifier = 500;
+        int randomizerX = -5 + (int)(Math.random() * ((5 - -5) + 1));
+        int randomizerY = -5 + (int)(Math.random() * ((5 - -5) + 1));
+        int modifier = 5;
         if(moveX > 0){
             moveX += (modifier + randomizerX);
         }else{
@@ -128,10 +131,10 @@ public class Ball {
     //ball impact on paddle
     public void reversePaddle(Playerpaddle paddle){
 
-        int randomizerX = -50 + (int)(Math.random() * ((50 - -50) + 1));
-        int randomizerY = -50 + (int)(Math.random() * ((50 - -50) + 1));
+        int randomizerX = -5 + (int)(Math.random() * ((5 - -5) + 1));
+        int randomizerY = -5 + (int)(Math.random() * ((5 - -5) + 1));
 
-        int modifier = 500;
+        float modifier = .05f;
 
         //paddle zones
         //zone 1: top 1/3rd: Bounce up
@@ -211,8 +214,6 @@ public class Ball {
 
         System.out.println("Player " + player + " Scored a point!");
 
-        //This breaks everything :(
-        //this.dispose();
 
     }
 
