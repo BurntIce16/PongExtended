@@ -14,16 +14,17 @@ A remake of pong with added features such as power ups and modifiers written in 
 - [x] Add Colliders
 - [x] Constrain paddles to screen area
 - [x] Improve ball movement
-- [ ] Make controls event driven
+- [x] Make controls event driven
 - [x] Add Scoring
 - [x] Add Life Counter system
 - [x] Add power up system
+- [x] Add text
 - [ ] Add Power Up Menu
 - [ ] Add Power Ups (aim for around 15 ish)
 
 <h3>Low priority</h3>
 
-- [ ] Force aspect ratio
+- [x] Force aspect ratio
 - [ ] Add options
 - [x] Add post processing
 - [ ] Add controller support
