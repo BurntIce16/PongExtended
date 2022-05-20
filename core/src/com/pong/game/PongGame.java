@@ -160,7 +160,7 @@ public class PongGame extends ApplicationAdapter {
 			tempBall.dispose();
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.T)){
-			labelManager.makeLabel(" PLAYER\n1 SCORES");
+			labelManager.makeLabel("{COLOR=WHITE}{SLOWER}{EASE}PLAYER 1 SCORES{ENDEASE}");
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
 			labelManager.removeText();

@@ -3,6 +3,7 @@ package com.pong.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.rafaskoberg.gdx.typinglabel.TypingAdapter;
 import com.rafaskoberg.gdx.typinglabel.TypingLabel;
 
 import java.util.ArrayList;
@@ -27,12 +28,20 @@ public class LabelManager {
     }
 
     public void makeLabel(String text){
-        text = "{COLOR=WHITE}{SLOWER}" + text;
         TypingLabel label = new TypingLabel(text, skin);
         labels.add(label);
         label.setFontScale(5f);
+        label.setWrap(true);
+        label.setAlignment(1);
         label.setPosition((float) (Gdx.graphics.getWidth()/2) - (label.getWidth()/2),(float) (Gdx.graphics.getHeight()/2) + (label.getHeight()/2));
         stage.addActor(label);
+
+        label.setTypingListener(new TypingAdapter() {
+            public void end () {
+                System.out.println("This is called when the text reaches the end.");
+            }
+        });
+
     }
 
     public void draw(){
