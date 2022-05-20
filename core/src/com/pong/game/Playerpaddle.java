@@ -87,7 +87,7 @@ public class Playerpaddle {
     }
 
     public void limitMovement(){
-        if(body.getPosition().y> Gdx.graphics.getHeight()/2f){
+        if(body.getPosition().y>( Gdx.graphics.getHeight()/2f)/pongGame.scaler){
             moveUp = false;
         }else{
             moveDown = false;
