@@ -108,14 +108,16 @@ public class Ball {
 
     //Standard wall impact
     public void reverse(boolean x){
-        int randomizerX = -5 + (int)(Math.random() * ((5 - -5) + 1));
-        int randomizerY = -5 + (int)(Math.random() * ((5 - -5) + 1));
-        int modifier = 5;
+        int randomizerX = -5 + (int)(Math.random() * ((1 - -10) + 1));
+        int randomizerY = -5 + (int)(Math.random() * ((1 - -10) + 1));
+        float modifier = .05f;
+        /*
         if(moveX > 0){
             moveX += (modifier + randomizerX);
         }else{
             moveX -= (modifier + randomizerX);
         }
+         */
         if(moveY > 0){
             moveY += (modifier + randomizerY);
         }else{
@@ -131,8 +133,8 @@ public class Ball {
     //ball impact on paddle
     public void reversePaddle(Playerpaddle paddle){
 
-        int randomizerX = -5 + (int)(Math.random() * ((5 - -5) + 1));
-        int randomizerY = -5 + (int)(Math.random() * ((5 - -5) + 1));
+        int randomizerX = -5 + (int)(Math.random() * ((1 - -10) + 1));
+        int randomizerY = -5 + (int)(Math.random() * ((1 - -10) + 1));
 
         float modifier = .05f;
 
@@ -173,11 +175,11 @@ public class Ball {
         }else{
             System.out.println("Mid zone");
             if(moveY > 0){
-                moveY = (modifier*2 + randomizerY*5);
+                moveY = (modifier*2 + randomizerY);
             }else{
-                moveY = (modifier*2 - randomizerY*5);
+                moveY = (modifier*2 - randomizerY);
             }
-
+        System.out.println (getVelocity());
         }
 
         moveY *= -1;
