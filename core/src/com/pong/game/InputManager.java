@@ -60,6 +60,7 @@ public class InputManager implements InputProcessor {
         if(keycode == Input.Keys.DOWN){
             downPressed = false;
         }
+
         return false;
     }
 

@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.pong.game.mods.Mitosis;
 
@@ -29,6 +30,7 @@ public class PongGame extends ApplicationAdapter {
 	ScoreKeeper sk;
 	SoundManager soundManager;
 	InputManager inputManager;
+	LabelManager labelManager;
 
 
 
@@ -116,6 +118,10 @@ public class PongGame extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(inputManager);
 
 
+		labelManager = new LabelManager(this);
+
+
+
 	}
 
 
@@ -148,6 +154,17 @@ public class PongGame extends ApplicationAdapter {
 		if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
 			modManager.addMod(new Mitosis(this));
 		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.D)){
+			Ball tempBall = balls.get(0);
+			balls.remove(0);
+			tempBall.dispose();
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.T)){
+			labelManager.makeLabel(" PLAYER\n1 SCORES");
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
+			labelManager.removeText();
+		}
 		//THIS IS TEMPORARY!!!
 
 
@@ -174,7 +191,8 @@ public class PongGame extends ApplicationAdapter {
 		//check for input
 		inputManager.pollInputs();
 
-		//System.out.println(balls.get(0).getVelocity());
+		labelManager.draw();
+
 
 	}
 	
@@ -196,6 +214,8 @@ public class PongGame extends ApplicationAdapter {
 		sk.dispose();
 
 		soundManager.dispose();
+
+		labelManager.dispose();
 	}
 
 	public World getWorld(){

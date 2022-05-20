@@ -101,6 +101,8 @@ public class Ball {
     public void dispose(){
         img.dispose();
         shape.dispose();
+        world.destroyBody(body);
+        System.out.println("Test");
     }
 
 
@@ -212,8 +214,6 @@ public class Ball {
 
         System.out.println("Player " + player + " Scored a point!");
 
-        //This breaks everything :(
-        //this.dispose();
 
     }
 
