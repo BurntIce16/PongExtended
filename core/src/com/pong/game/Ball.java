@@ -14,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Ball {
     PongGame pongGame;
     Texture img;
@@ -27,6 +29,7 @@ public class Ball {
     Fixture fixture;
     float moveX = 0;
     float moveY = 0;
+    boolean killFlag = false;
 
     public Ball(PongGame pg, int s){
         pongGame = pg;
@@ -75,7 +78,7 @@ public class Ball {
 
     public void config(){
         if(side == 0){
-            sprite.setPosition((int) ((float) ((Gdx.graphics.getWidth()/2)/ pongGame.scaler) + sprite.getWidth()/2), (int) (((Gdx.graphics.getHeight()/2)/ pongGame.scaler) + sprite.getHeight()/2));
+            sprite.setPosition(((((float)Gdx.graphics.getWidth()/2f)/ pongGame.scaler) + sprite.getWidth()/2f),(((float) Gdx.graphics.getHeight()/2f)/ pongGame.scaler) + sprite.getHeight());
         }else if(side == 1){
             sprite.setPosition(5, (int) (Gdx.graphics.getHeight()/2 - sprite.getHeight()/2));
         }else if(side == 2){
@@ -84,13 +87,6 @@ public class Ball {
     }
 
     public void draw(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            moveX = 1f;
-            moveY = 0;
-            System.out.println("Force Applied!");
-        }
-
-
         body.setLinearVelocity(moveX, moveY);
 
         sprite.setPosition(body.getPosition().x - sprite.getWidth()/2, body.getPosition().y - sprite.getHeight()/2);
@@ -102,22 +98,13 @@ public class Ball {
         img.dispose();
         shape.dispose();
         world.destroyBody(body);
-        System.out.println("Test");
     }
 
 
     //Standard wall impact
     public void reverse(boolean x){
-        int randomizerX = -5 + (int)(Math.random() * ((1 - -10) + 1));
-        int randomizerY = -5 + (int)(Math.random() * ((1 - -10) + 1));
+        int randomizerY = ThreadLocalRandom.current().nextInt(-1, 1 + 1);
         float modifier = .05f;
-        /*
-        if(moveX > 0){
-            moveX += (modifier + randomizerX);
-        }else{
-            moveX -= (modifier + randomizerX);
-        }
-         */
         if(moveY > 0){
             moveY += (modifier + randomizerY);
         }else{
@@ -133,10 +120,10 @@ public class Ball {
     //ball impact on paddle
     public void reversePaddle(Playerpaddle paddle){
 
-        int randomizerX = -5 + (int)(Math.random() * ((1 - -10) + 1));
-        int randomizerY = -5 + (int)(Math.random() * ((1 - -10) + 1));
+        int randomizerX = ThreadLocalRandom.current().nextInt(-1, 1 + 1);
+        int randomizerY = ThreadLocalRandom.current().nextInt(-1, 1 + 1);
 
-        float modifier = .05f;
+        float modifier = 1f;
 
         //paddle zones
         //zone 1: top 1/3rd: Bounce up
@@ -156,7 +143,7 @@ public class Ball {
 
         //check collision zone for y modification
         if(ballY > (paddleY+midZone)){
-            System.out.println("High zone");
+            //System.out.println("High zone");
 
             if(moveY >= 0){
                 moveY *= -1;
@@ -165,28 +152,30 @@ public class Ball {
 
 
         }else if(ballY < (paddleY-midZone)){
-            System.out.println("Low zone");
+            //System.out.println("Low zone");
 
+
+            if (moveY > 0) {
+                moveY += (modifier + randomizerY);
+            }else{
+                moveY -= (modifier + randomizerY);
+            }
             if(moveY <= 0){
                 moveY *= -1;
             }
 
-            moveY -= (modifier + randomizerY);
         }else{
-            System.out.println("Mid zone");
+            //System.out.println("Mid zone");
             if(moveY > 0){
-                moveY = (modifier*2 + randomizerY);
+                moveY += (modifier*2 + randomizerY);
             }else{
-                moveY = (modifier*2 - randomizerY);
+                moveY -= (modifier*2 - randomizerY);
             }
-        System.out.println (getVelocity());
         }
 
         moveY *= -1;
         moveX *=-1;
         body.setLinearVelocity(moveX, moveY);
-        //System.out.println(body.getLinearVelocity());
-
     }
 
     public Vector2 getVelocity(){
@@ -206,17 +195,32 @@ public class Ball {
 
     public void score(){
         int player;
-        if(body.getPosition().x < (float) Gdx.graphics.getWidth()/2){
+        if(body.getPosition().x < (float) (Gdx.graphics.getWidth()/2)/ pongGame.scaler){
             player = 1;
         }else{
             player = 2;
         }
 
         pongGame.getScoreKeeper().removeLife(player);
+        pongGame.getGameStageManager().setCurrentState(pongGame.getGameStageManager().SCORED);
+    }
 
-        System.out.println("Player " + player + " Scored a point!");
+    public void startPush(){
+        float startSpeed = 5f;
 
+        //jank math
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+        if(randomNum == 0){
+            randomNum = -1;
+        }
+        moveX = (startSpeed * randomNum);
+    }
 
+    public void setKillFlag(){
+        killFlag = true;
+    }
+    public boolean getKillFlag(){
+        return killFlag;
     }
 
 

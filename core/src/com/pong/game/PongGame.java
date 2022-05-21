@@ -31,10 +31,12 @@ public class PongGame extends ApplicationAdapter {
 	SoundManager soundManager;
 	InputManager inputManager;
 	LabelManager labelManager;
+	GameStageManager gameStageManager;
 
 
 
 	private final boolean renderColliders = true;
+
 
 	//Box2D Collision Bits
 	//public static final short NOTHING_BIT = 0;
@@ -45,15 +47,12 @@ public class PongGame extends ApplicationAdapter {
 
 
 	//camera constants for pixel to meter conversion
-
 	//DONT TOUNCH THESE NUMBERS IF YOU DONT KNOW WHAT YOUR DOING!!!!
 	//---------------------------------------------------------------
 	private final int VIEWPORT_WIDTH = 16;
 	private final int VIEWPORT_HEIGHT = 9;
-	public final int scaler = 80;
+	public final float scaler = 80;
 	//---------------------------------------------------------------
-
-
 
 
 	@Override
@@ -66,14 +65,6 @@ public class PongGame extends ApplicationAdapter {
 
 
 		//setup camera
-
-
-		//old outdated code
-		/*
-		int width = Gdx.graphics.getWidth();
-		int height = Gdx.graphics.getHeight();
-		 */
-
 		camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		camera.position.set((float) VIEWPORT_WIDTH / 2, (float) VIEWPORT_HEIGHT / 2, 0);
 		camera.update();
@@ -90,8 +81,8 @@ public class PongGame extends ApplicationAdapter {
 		paddles.add(p1);
 		paddles.add(p2);
 
-		Ball b1 = new Ball(this, 0);
-		balls.add(b1);
+		//Ball b1 = new Ball(this, 0);
+		//balls.add(b1);
 
 		//Create Level
 		level = new LevelBuilder(this);
@@ -109,6 +100,7 @@ public class PongGame extends ApplicationAdapter {
 		//add score keeper
 		sk = new ScoreKeeper(this);
 
+
 		//add sound manager
 		soundManager = new SoundManager();
 
@@ -117,10 +109,14 @@ public class PongGame extends ApplicationAdapter {
 		inputManager = new InputManager(this);
 		Gdx.input.setInputProcessor(inputManager);
 
-
+		//create label manager
 		labelManager = new LabelManager(this);
 
+		//create Game State Manager
+		gameStageManager = new GameStageManager(this);
 
+		//draw startup text
+		gameStageManager.setCurrentState(gameStageManager.getState());
 
 	}
 
@@ -159,12 +155,6 @@ public class PongGame extends ApplicationAdapter {
 			balls.remove(0);
 			tempBall.dispose();
 		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.T)){
-			labelManager.makeLabel("{COLOR=WHITE}{SLOWER}{EASE}PLAYER 1 SCORES{ENDEASE}");
-		}
-		if(Gdx.input.isKeyJustPressed(Input.Keys.Y)){
-			labelManager.removeText();
-		}
 		//THIS IS TEMPORARY!!!
 
 
@@ -193,6 +183,10 @@ public class PongGame extends ApplicationAdapter {
 
 		labelManager.draw();
 
+
+		//This is kept seperate from the field reset method due to some box2d weirdness
+		//The world.dispose methoth cannot be called during a world step so here is this jank instead
+		ballCleaner();
 
 	}
 	
@@ -242,9 +236,20 @@ public class PongGame extends ApplicationAdapter {
 	public ArrayList<Playerpaddle> getPaddles() {
 		return  paddles;
 	}
+	public GameStageManager getGameStageManager(){
+		return gameStageManager;
+	}
+	public LabelManager getLabelManager(){
+		return labelManager;
+	}
 
 
 	public void addBall(Ball ball){
+		balls.add(ball);
+	}
+
+	public void newBall(int side){
+		Ball ball = new Ball(this, side);
 		balls.add(ball);
 	}
 
@@ -254,4 +259,30 @@ public class PongGame extends ApplicationAdapter {
 		camera.update();
 	}
 
+
+
+	public void resetField(){
+		//System.out.println("field reset called");
+		for(Ball b: balls){
+			b.setKillFlag();
+		}
+
+	}
+
+	public void ballCleaner(){
+		boolean cleaned = false;
+		//check for balls to be disposed
+		for(int i = balls.size()-1; i >= 0; i--){
+			//System.out.println(balls.size());
+			if(balls.get(i).getKillFlag()){
+				balls.get(i).dispose();
+				balls.remove(i);
+				i--;
+				cleaned= true;
+			}
+		}
+		if(cleaned && sk.getWinner() == 3){
+			gameStageManager.setCurrentState(gameStageManager.PRE_GAME);
+		}
+	}
 }

@@ -72,13 +72,11 @@ public class WorldContactListener implements ContactListener {
         if(fixA.getFilterData().categoryBits == PongGame.PLAYER_PADDLE_BIT){
             if(fixB.getFilterData().categoryBits == PongGame.WALL_BIT){
                 ((Playerpaddle) fixA.getUserData()).limitMovement();
-                System.out.println("test");
             }
         }
         if(fixB.getFilterData().categoryBits == PongGame.PLAYER_PADDLE_BIT){
             if(fixA.getFilterData().categoryBits == PongGame.WALL_BIT){
                 ((Playerpaddle) fixB.getUserData()).limitMovement();
-                System.out.println("test");
             }
         }
 

@@ -104,14 +104,12 @@ public class Playerpaddle {
     public void Up(){
         if(moveUp){
             sprite.translateY(speed);
-            System.out.println("Up");
         }
     }
 
     public void Down(){
         if(moveDown){
             sprite.translateY(-speed);
-            System.out.println("Down");
         }
     }
 }

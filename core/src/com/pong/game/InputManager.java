@@ -28,6 +28,8 @@ public class InputManager implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+
+        //Paddle controls
         if(keycode == Input.Keys.W){
             WPressed = true;
         }
@@ -40,6 +42,20 @@ public class InputManager implements InputProcessor {
         if(keycode == Input.Keys.DOWN){
             downPressed = true;
         }
+
+        //start game
+        if(keycode == Input.Keys.SPACE){
+            System.out.println(pongGame.getGameStageManager().getState());
+            if(pongGame.getGameStageManager().getState() == pongGame.getGameStageManager().PRE_GAME){
+                pongGame.getBalls().get(0).startPush();
+                pongGame.getGameStageManager().setCurrentState(pongGame.getGameStageManager().IN_GAME);
+            }
+            if(pongGame.getGameStageManager().getState() == pongGame.getGameStageManager().END_GAME){
+                pongGame.getLabelManager().removeText();
+                pongGame.getGameStageManager().setCurrentState(pongGame.getGameStageManager().PRE_GAME);
+            }
+        }
+
 
         //keep this
         return false;
