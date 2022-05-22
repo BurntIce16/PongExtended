@@ -16,6 +16,7 @@ public class GameStageManager {
     public final int IN_GAME = 1;
     public final int SCORED = 2;
     public final int END_GAME = 3;
+    private int rounds = 0;
 
     private PongGame pongGame;
     private int currentState = PRE_GAME;
@@ -34,6 +35,7 @@ public class GameStageManager {
     public void setCurrentState(int state){
         currentState = state;
         if(state == SCORED){
+            rounds++;
             pongGame.resetField();
             if(pongGame.getScoreKeeper().getWinner() != 3){
                 setCurrentState(END_GAME);
@@ -41,6 +43,9 @@ public class GameStageManager {
         }
         if(state == PRE_GAME){
             //make modifier selector appear
+            if(rounds != 0){
+                pongGame.getModManager().enableMenu();
+            }
             pongGame.getLabelManager().makeLabel("{EASE}Press space to start{ENDEASE}");
             pongGame.newBall(0);
         }
@@ -50,7 +55,13 @@ public class GameStageManager {
         if(state == END_GAME){
             pongGame.getLabelManager().removeText();
             pongGame.getLabelManager().makeLabel("Player " + pongGame.getScoreKeeper().getWinner() + " Won!");
+            rounds = 0;
+
         }
+    }
+
+    public int getRounds(){
+        return rounds;
     }
 
 

@@ -108,5 +108,9 @@ public class ScoreKeeper {
         return lives2;
     }
 
+    public void setWinner(int player){
+        winner = player;
+    }
+
 
 }

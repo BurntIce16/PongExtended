@@ -26,7 +26,7 @@ public class LabelManager {
     public void makeLabel(String text){
         TypingLabel label = new TypingLabel(text, skin);
         labels.add(label);
-        label.setFontScale(2f);
+        label.setFontScale(2.1f);
         label.setWrap(true);
         label.setAlignment(1);
         label.setPosition((float) (Gdx.graphics.getWidth()/2) - (label.getWidth()/2),(float) (Gdx.graphics.getHeight()/2) + (label.getHeight()/2));

@@ -1,6 +1,7 @@
 package com.pong.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
@@ -16,7 +17,7 @@ import com.pong.game.mods.Mitosis;
 
 import java.util.ArrayList;
 
-public class PongGame extends ApplicationAdapter {
+public class PongGame extends Game {
 	SpriteBatch batch;
 	ArrayList<Playerpaddle> paddles = new ArrayList<>();
 	ArrayList<Ball> balls = new ArrayList<>();
@@ -91,7 +92,6 @@ public class PongGame extends ApplicationAdapter {
 		//create debug renderer
 		if(renderColliders){
 			box2dDebugRenderer = new Box2DDebugRenderer();
-
 		}
 
 		//Add modifier system
@@ -155,6 +155,12 @@ public class PongGame extends ApplicationAdapter {
 			balls.remove(0);
 			tempBall.dispose();
 		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
+			modManager.enableMenu();
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.H)){
+			modManager.dissableMenu();
+		}
 		//THIS IS TEMPORARY!!!
 
 
@@ -164,6 +170,8 @@ public class PongGame extends ApplicationAdapter {
 		for(Ball b : balls){
 			b.draw();
 		}
+
+		modManager.render();
 
 
 		//close batch
@@ -182,6 +190,8 @@ public class PongGame extends ApplicationAdapter {
 		inputManager.pollInputs();
 
 		labelManager.draw();
+
+
 
 
 		//This is kept seperate from the field reset method due to some box2d weirdness
@@ -210,6 +220,8 @@ public class PongGame extends ApplicationAdapter {
 		soundManager.dispose();
 
 		labelManager.dispose();
+
+		modManager.dispose();
 	}
 
 	public World getWorld(){
@@ -241,6 +253,9 @@ public class PongGame extends ApplicationAdapter {
 	}
 	public LabelManager getLabelManager(){
 		return labelManager;
+	}
+	public ModifierManager getModManager(){
+		return modManager;
 	}
 
 

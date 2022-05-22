@@ -45,16 +45,38 @@ public class InputManager implements InputProcessor {
 
         //start game
         if(keycode == Input.Keys.SPACE){
-            System.out.println(pongGame.getGameStageManager().getState());
+            //System.out.println(pongGame.getGameStageManager().getState());
             if(pongGame.getGameStageManager().getState() == pongGame.getGameStageManager().PRE_GAME){
-                pongGame.getBalls().get(0).startPush();
-                pongGame.getGameStageManager().setCurrentState(pongGame.getGameStageManager().IN_GAME);
+                if(pongGame.getModManager().isEnabled()){
+                    //space selects the modifier
+                    pongGame.getModManager().selectCurrentMod();
+                    pongGame.getModManager().dissableMenu();
+                }else{
+                    //space starts the ball
+                    pongGame.getBalls().get(0).startPush();
+                    pongGame.getGameStageManager().setCurrentState(pongGame.getGameStageManager().IN_GAME);
+                }
             }
+
+            //selection for end game
             if(pongGame.getGameStageManager().getState() == pongGame.getGameStageManager().END_GAME){
                 pongGame.getLabelManager().removeText();
                 pongGame.getGameStageManager().setCurrentState(pongGame.getGameStageManager().PRE_GAME);
+                pongGame.getScoreKeeper().setWinner(3);
+                System.out.println("Reset to pregame");
             }
         }
+
+        if(pongGame.getModManager().isEnabled()){
+            if(keycode == Input.Keys.LEFT){
+                pongGame.getModManager().moveLeft();
+            }
+            if(keycode == Input.Keys.RIGHT){
+                pongGame.getModManager().moveRight();
+            }
+        }
+
+
 
 
         //keep this

@@ -13,7 +13,6 @@ public class DesktopLauncher {
 		config.setWindowedMode(1280, 720);
 		config.setResizable(false);
 		config.setWindowIcon("ico.png");
-
 		new Lwjgl3Application(new PongGame(), config);
 	}
 }
