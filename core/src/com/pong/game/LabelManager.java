@@ -34,7 +34,6 @@ public class LabelManager {
 
         label.setTypingListener(new TypingAdapter() {
             public void end () {
-                System.out.println("This is called when the text reaches the end.");
             }
         });
 

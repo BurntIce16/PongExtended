@@ -47,7 +47,6 @@ public class InputManager implements InputProcessor {
 
         //start game
         if(keycode == Input.Keys.SPACE){
-            //System.out.println(pongGame.getGameStageManager().getState());
             if(pongGame.getGameStageManager().getState() == pongGame.getGameStageManager().PRE_GAME){
                 if(pongGame.getModManager().isEnabled()){
                     //space selects the modifier

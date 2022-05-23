@@ -102,7 +102,6 @@ public class ModifierManager {
 
     public void addMod(Modifier modifier){
         mods.add(modifier);
-        System.out.println("Added a mod");
         modifier.enable();
     }
 

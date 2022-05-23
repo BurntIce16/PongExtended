@@ -7,8 +7,8 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(120);
-		config.setIdleFPS(120);
+		config.setForegroundFPS(60);
+		config.setIdleFPS(60);
 		config.setTitle("PongExtended");
 		config.setWindowedMode(1280, 720);
 		config.setResizable(false);

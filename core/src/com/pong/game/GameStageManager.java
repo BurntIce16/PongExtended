@@ -48,7 +48,6 @@ public class GameStageManager {
             }
             pongGame.getLabelManager().makeLabel("{EASE}Press space to start{ENDEASE}");
             pongGame.newBall(0);
-            System.out.println("GameStateManager made a new ball");
         }
         if(state == IN_GAME){
             pongGame.getLabelManager().removeText();

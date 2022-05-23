@@ -121,9 +121,6 @@ public class PongGame extends Game {
 
 	@Override
 	public void render () {
-
-		//System.out.println(balls.get(0).getVelocity());
-
 		//start vfx
 		vfx.startRender();
 
@@ -281,28 +278,23 @@ public class PongGame extends Game {
 
 
 	public void resetField(){
-		//System.out.println("field reset called");
 		for(Ball b: balls){
 			b.setKillFlag();
 		}
-
 	}
 
 	public void ballCleaner(){
 		boolean cleaned = false;
 		//check for balls to be disposed
 		for(int i = balls.size()-1; i >= 0; i--){
-			//System.out.println(balls.size());
 			if(balls.get(i).getKillFlag()){
 				balls.get(i).dispose();
 				balls.remove(i);
-				i--;
 				cleaned= true;
 			}
 		}
 		if(cleaned && sk.getWinner() == 3){
 			gameStageManager.setCurrentState(gameStageManager.PRE_GAME);
-			System.out.println("ball cleaner set pregame");
 			cleaned = false;
 		}
 	}

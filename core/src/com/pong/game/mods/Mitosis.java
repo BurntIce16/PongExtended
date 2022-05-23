@@ -32,7 +32,6 @@ public class Mitosis implements Modifier {
             if(b.getPaddleBounces() >= 5){
                 b.setPaddleBounces(0);
                 Ball ball = pongGame.newBall(0);
-                System.out.println("Mitosis made a new ball");
                 ball.setPos(new Vector2(b.getPos().x, b.getPos().y+ 1f));
                 ball.setMove(b.getMoveX() * .5f, b.getMoveY() *.5f);
                 //ball.setColor(255, 0, 0);

@@ -145,7 +145,7 @@ public class Ball {
 
         //check collision zone for y modification
         if(ballY > (paddleY+midZone)){
-            //System.out.println("High zone");
+            //High zone
 
             if(moveY >= 0){
                 moveY *= -1;
@@ -154,7 +154,7 @@ public class Ball {
 
 
         }else if(ballY < (paddleY-midZone)){
-            //System.out.println("Low zone");
+            //Low zone"
 
 
             if (moveY > 0) {
@@ -167,7 +167,7 @@ public class Ball {
             }
 
         }else{
-            //System.out.println("Mid zone");
+            //Mid zone
             if(moveY > 0){
                 moveY += (modifier*2 + randomizerY);
             }else{

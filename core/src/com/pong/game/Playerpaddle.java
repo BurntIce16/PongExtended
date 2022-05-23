@@ -18,7 +18,7 @@ public class Playerpaddle {
     SpriteBatch batch;
     int side;
     Sprite sprite;
-    private float speed = .05f;
+    private float speed = .2f;
     Body body;
     World world;
     PolygonShape shape;
@@ -69,7 +69,7 @@ public class Playerpaddle {
         if(side == 0){
             sprite.setPosition((float) wallOffset, (int) (((Gdx.graphics.getHeight()/2)/pongGame.scaler) - sprite.getHeight()/2));
         }else if(side == 1){
-            sprite.setPosition((float) (Gdx.graphics.getWidth()/ pongGame.scaler) - sprite.getWidth() - (float) wallOffset, (int) (((Gdx.graphics.getHeight()/2)/ pongGame.scaler) - sprite.getHeight()/2));
+            sprite.setPosition((Gdx.graphics.getWidth()/ pongGame.scaler) - sprite.getWidth() - (float) wallOffset, (int) (((Gdx.graphics.getHeight()/2)/ pongGame.scaler) - sprite.getHeight()/2));
         }
     }
 
