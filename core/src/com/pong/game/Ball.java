@@ -1,7 +1,6 @@
 package com.pong.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,6 +29,8 @@ public class Ball {
     float moveX = 0;
     float moveY = 0;
     boolean killFlag = false;
+    private int paddleBounces = 0;
+    private int frameCounter = 0;
 
     public Ball(PongGame pg, int s){
         pongGame = pg;
@@ -87,6 +88,7 @@ public class Ball {
     }
 
     public void draw(){
+        frameCounter++;
         body.setLinearVelocity(moveX, moveY);
 
         sprite.setPosition(body.getPosition().x - sprite.getWidth()/2, body.getPosition().y - sprite.getHeight()/2);
@@ -176,6 +178,7 @@ public class Ball {
         moveY *= -1;
         moveX *=-1;
         body.setLinearVelocity(moveX, moveY);
+        incrementPaddleBounce();
     }
 
     public Vector2 getVelocity(){
@@ -221,6 +224,47 @@ public class Ball {
     }
     public boolean getKillFlag(){
         return killFlag;
+    }
+
+    public void setColor(float r, float g, float b){
+        sprite.setColor(r,g,b,1f);
+    }
+
+    public void setMove(float x, float y){
+        moveX = x;
+        moveY = y;
+    }
+    public float getMoveX(){
+        return moveX;
+    }
+    public float getMoveY(){
+        return moveY;
+    }
+
+    public void incrementPaddleBounce(){
+        paddleBounces++;
+    }
+    public int getPaddleBounces(){
+        return paddleBounces;
+    }
+    public void setPaddleBounces(int x){
+        paddleBounces = x;
+    }
+    public void setAlpha(float a){
+        sprite.setAlpha(a);
+    }
+    public float getAlpha(){
+        return sprite.getColor().a;
+    }
+    public void setFrameCounter(int f){
+        frameCounter = f;
+    }
+    public int getFrameCounter(){
+        return frameCounter;
+    }
+
+    public void setTexture(Texture newTexture){
+        sprite.setTexture(newTexture);
     }
 
 

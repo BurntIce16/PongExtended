@@ -36,7 +36,7 @@ public class PongGame extends Game {
 
 
 
-	private final boolean renderColliders = true;
+	private final boolean renderColliders = false;
 
 
 	//Box2D Collision Bits
@@ -82,8 +82,6 @@ public class PongGame extends Game {
 		paddles.add(p1);
 		paddles.add(p2);
 
-		//Ball b1 = new Ball(this, 0);
-		//balls.add(b1);
 
 		//Create Level
 		level = new LevelBuilder(this);
@@ -191,6 +189,8 @@ public class PongGame extends Game {
 
 		labelManager.draw();
 
+		modManager.updateMods();
+
 
 
 
@@ -257,15 +257,19 @@ public class PongGame extends Game {
 	public ModifierManager getModManager(){
 		return modManager;
 	}
+	public InputManager getInputManager(){
+		return inputManager;
+	}
 
 
 	public void addBall(Ball ball){
 		balls.add(ball);
 	}
 
-	public void newBall(int side){
+	public Ball newBall(int side){
 		Ball ball = new Ball(this, side);
 		balls.add(ball);
+		return ball;
 	}
 
 	//resize camera to actual dimensions
@@ -298,6 +302,8 @@ public class PongGame extends Game {
 		}
 		if(cleaned && sk.getWinner() == 3){
 			gameStageManager.setCurrentState(gameStageManager.PRE_GAME);
+			System.out.println("ball cleaner set pregame");
+			cleaned = false;
 		}
 	}
 }

@@ -18,6 +18,8 @@ public class InputManager implements InputProcessor {
     private boolean SPressed;
     private boolean downPressed;
 
+    private boolean reversed = false;
+
 
     public InputManager(PongGame p){
         pongGame = p;
@@ -61,9 +63,7 @@ public class InputManager implements InputProcessor {
             //selection for end game
             if(pongGame.getGameStageManager().getState() == pongGame.getGameStageManager().END_GAME){
                 pongGame.getLabelManager().removeText();
-                pongGame.getGameStageManager().setCurrentState(pongGame.getGameStageManager().PRE_GAME);
                 pongGame.getScoreKeeper().setWinner(3);
-                System.out.println("Reset to pregame");
             }
         }
 
@@ -134,17 +134,38 @@ public class InputManager implements InputProcessor {
 
     public void pollInputs(){
         if(upPressed){
-            p2.Up();
+            if(!reversed){
+                p2.Up();
+            }else{
+                p2.Down();
+            }
         }
         if(downPressed){
-            p2.Down();
+            if(!reversed){
+                p2.Down();
+            }else{
+                p2.Up();
+            }
+
         }
         if(WPressed){
-            p1.Up();
+            if(!reversed) {
+                p1.Up();
+            }else{
+                p1.Down();
+            }
         }
         if(SPressed){
-            p1.Down();
+            if(!reversed) {
+                p1.Down();
+            }else{
+                p1.Up();
+            }
         }
+    }
+
+    public void setReversed(boolean r){
+        reversed = r;
     }
 
 }
