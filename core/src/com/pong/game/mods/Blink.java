@@ -9,7 +9,7 @@ import com.pong.game.PongGame;
 
 public class Blink implements Modifier {
     PongGame pongGame;
-    private final int minFrames = 30;
+    private final int minFrames = 15;
     private Texture icon;
 
     public Blink(PongGame p){

@@ -63,6 +63,7 @@ public class InputManager implements InputProcessor {
             if(pongGame.getGameStageManager().getState() == pongGame.getGameStageManager().END_GAME){
                 pongGame.getLabelManager().removeText();
                 pongGame.getScoreKeeper().setWinner(3);
+                pongGame.gameStageManager.setCurrentState(pongGame.gameStageManager.PRE_GAME);
             }
         }
 

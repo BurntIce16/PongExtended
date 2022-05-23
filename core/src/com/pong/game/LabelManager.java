@@ -23,11 +23,11 @@ public class LabelManager {
 
     }
 
-    public void makeLabel(String text){
+    public void makeLabel(String text, float size){
         TypingLabel label = new TypingLabel(text, skin);
         labels.add(label);
-        label.setFontScale(2.1f);
-        label.setWrap(true);
+        label.setFontScale(size);
+        label.setWrap(false);
         label.setAlignment(1);
         label.setPosition((float) (Gdx.graphics.getWidth()/2) - (label.getWidth()/2),(float) (Gdx.graphics.getHeight()/2) + (label.getHeight()/2));
         stage.addActor(label);

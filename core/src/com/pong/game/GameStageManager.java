@@ -46,7 +46,7 @@ public class GameStageManager {
             if(rounds != 0){
                 pongGame.getModManager().enableMenu();
             }
-            pongGame.getLabelManager().makeLabel("{EASE}Press space to start{ENDEASE}");
+            pongGame.getLabelManager().makeLabel("{EASE}Press space to start{ENDEASE}", 2.1f);
             pongGame.newBall(0);
         }
         if(state == IN_GAME){
@@ -54,7 +54,7 @@ public class GameStageManager {
         }
         if(state == END_GAME){
             pongGame.getLabelManager().removeText();
-            pongGame.getLabelManager().makeLabel("Player " + pongGame.getScoreKeeper().getWinner() + " Won!");
+            pongGame.getLabelManager().makeLabel("Player " + pongGame.getScoreKeeper().getWinner() + " Won!", 3f);
             rounds = 0;
             pongGame.getModManager().clearMods();
 
